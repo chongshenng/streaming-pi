@@ -2,6 +2,13 @@
 
 This is an update of my live streaming setup on Raspberry Pi 3B+. Previously, I used the setup by Kamran Ayub over at [kamranicus.com](https://kamranicus.com/building-a-raspberry-pi-3-baby-monitor/) but it was slightly hacky and I wanted to make more use of Python and Docker to make this setup more reproducible.
 
+## Prerequisites
+1. Install Docker for Arm. I followed the steps listed on the [official Docker website](https://www.docker.com/blog/getting-started-with-docker-for-arm-on-linux/)
+2. Enable Glamor graphic acceleration based on `picamera2` manual section 2.3.
+3. Enable access to Raspberry Pi Camera in Docker ([reference](https://www.losant.com/blog/how-to-access-the-raspberry-pi-camera-in-docker)). There are 2 steps here:
+    1. Grant all users access to the Raspberry Pi Camera.
+    2. Mount pre-installed dependencies to the Docker container. Unfortunately, it seems like some dependencies are pre-installed on the host side. I'll try to run the container without mounting the host file system first.
+
 ## Steps
 1. Fix IP address
 2. Disable LED ([reference](https://n.ethz.ch/~dbernhard/disable-led-on-a-raspberry-pi.html))
