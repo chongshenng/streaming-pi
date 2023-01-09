@@ -2,6 +2,8 @@
 
 This is an update of my live streaming setup on Raspberry Pi 3B+. Previously, I used the setup by Kamran Ayub over at [kamranicus.com](https://kamranicus.com/building-a-raspberry-pi-3-baby-monitor/) but it was slightly hacky and I wanted to make more use of Python and Docker to make this setup more reproducible.
 
+We may not need Docker for a simple streamer using Python HTTPServer.
+
 ## Prerequisites
 1. Install Docker for Arm. I followed the steps listed on the [official Docker website](https://www.docker.com/blog/getting-started-with-docker-for-arm-on-linux/)
 2. When testing with `capture_jpeg.py`, I encountered the error `Exception: EGL_EXT_image_dma_buf_import missing`. To fix this, [enable Glamor graphic acceleration](https://github.com/raspberrypi/picamera2/issues/337#issuecomment-1265532691) based on `picamera2` manual section 2.3.

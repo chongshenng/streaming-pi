@@ -22,13 +22,14 @@ PAGE = """\
 </head>
 <body>
 <center>
-<h1>Picamera2 MJPEG Streaming Demo</h1>
+<h1>Pi Camera Stream</h1>
 <img src="stream.mjpg" class="center"/>
 </center>
 </body>
 </html>
 """
 
+# The following doesn't work but seems useful in the future for styling
 CSS = """\
 .center {
   display: block;
@@ -64,6 +65,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(content)
         elif self.path == '/style.css':
+            # The following doesn't work and is to be improved in the future
             # Ref: https://stackoverflow.com/a/71688768
             content = CSS.encode('utf-8')
             self.send_response(200)
@@ -105,7 +107,6 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
 
 picam2 = Picamera2()
 video_config = picam2.create_video_configuration() # main={"size": (640, 480)})
-# video_config["transform"] = libcamera.Transform(
 picam2.configure(video_config)
 output = StreamingOutput()
 picam2.start_recording(JpegEncoder(), FileOutput(output))
