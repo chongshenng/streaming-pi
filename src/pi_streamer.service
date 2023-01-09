@@ -5,7 +5,7 @@ After=multi-user.target
 [Service]
 Type=simple
 RemainAfterExit=yes
-ExecStart=sh -c /home/eye/projects/streaming-pi/src/custom_mjpeg_server.py
+ExecStart=/usr/bin/python3 /home/eye/projects/streaming-pi/src/custom_mjpeg_server.py
 
 [Install]
 WantedBy=multi-user.target

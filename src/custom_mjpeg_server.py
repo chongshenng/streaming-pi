@@ -11,14 +11,20 @@ from http import server
 from threading import Condition
 import libcamera
 
-from picamera2 import Picamera2
+from picamera2 import Picamera2, MappedArray
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
+
+import sys
+# Append site-packages to sys.path to fix the cv2 import issue
+sys.path.append("/home/eye/.local/lib/python3.9/site-packages")
+import cv2
+import time
 
 PAGE = """\
 <html>
 <head>
-<title>picamera2 MJPEG streaming demo</title>
+<title>Camera Streamer @ Reading Home</title>
 </head>
 <body>
 <center>
@@ -39,6 +45,16 @@ CSS = """\
 }
 """
 
+colour = (199, 159, 239)
+origin = (15, 30)
+font = cv2.FONT_HERSHEY_DUPLEX
+scale = 1
+thickness = 2
+
+def apply_timestamp(request):
+    timestamp = time.strftime("%Y/%m/%d %X")
+    with MappedArray(request, "main") as m:
+        cv2.putText(m.array, timestamp, origin, font, scale, colour, thickness)
 
 class StreamingOutput(io.BufferedIOBase):
     def __init__(self):
@@ -108,6 +124,7 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
 picam2 = Picamera2()
 video_config = picam2.create_video_configuration() # main={"size": (640, 480)})
 picam2.configure(video_config)
+picam2.pre_callback = apply_timestamp
 output = StreamingOutput()
 picam2.start_recording(JpegEncoder(), FileOutput(output))
 
