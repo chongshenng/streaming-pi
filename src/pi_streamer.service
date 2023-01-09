@@ -1,0 +1,11 @@
+[Unit]
+Description=Starts up picamera2 and streams MJPEG via server
+After=multi-user.target
+
+[Service]
+Type=simple
+RemainAfterExit=yes
+ExecStart=sh -c /home/eye/projects/streaming-pi/src/custom_mjpeg_server.py
+
+[Install]
+WantedBy=multi-user.target
