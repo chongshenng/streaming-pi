@@ -24,7 +24,7 @@ import time
 PAGE = """\
 <html>
 <head>
-<title>Camera Streamer @ Reading Home</title>
+<title>Camera Streamer @ Home</title>
 </head>
 <body>
 <center>
@@ -122,7 +122,7 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
 
 
 picam2 = Picamera2()
-video_config = picam2.create_video_configuration() # main={"size": (640, 480)})
+video_config = picam2.create_video_configuration()
 picam2.configure(video_config)
 picam2.pre_callback = apply_timestamp
 output = StreamingOutput()
